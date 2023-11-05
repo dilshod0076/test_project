@@ -16,12 +16,12 @@ const routes = [
 	 component: CreateProduct
   },
   {
-  	 path: '/edit_product',
+  	 path: '/edit_product/:productId',
   	 name: 'editProduct',
   	 component: EditProduct
   },
   {
-  	 path: '/product_view',
+  	 path: '/product_view/:productId',
   	 name: 'productView',
   	 component: ProductView
   },

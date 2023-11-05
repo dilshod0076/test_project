@@ -1,6 +1,6 @@
 <template>
 	<div>
-		EditProduct
+		
 	</div>
 </template>
 <script>
