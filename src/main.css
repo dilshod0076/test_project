@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	html {
+	  font-family: "Nunito", system-ui, sans-serif;
+	}
+	body {
+		background-color: #F6F7F8;
+		margin: 0 auto; 
+  }
+	h1 {
+		@apply text-[60px] font-black not-italic text-black leading-[85px];
+	}
+	h2 {
+		@apply text-[40px] font-bold text-black leading-10;
+	}
+	h3 {
+		@apply text-[36px] font-semibold text-black;
+	}
+	h4 {
+		@apply text-[26px] font-normal;
+	}
+	h5 {
+		@apply text-[24px] font-normal text-black;
+	}
+	h6 {
+		@apply text-[22px] font-normal;
+	}
+	.h7 {
+		@apply text-[20px] font-normal  leading-4;
+	}
+	.h8 {
+		@apply text-[32px] font-black text-darkgray;
+	}
+ }
