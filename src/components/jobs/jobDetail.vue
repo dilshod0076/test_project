@@ -8,12 +8,12 @@
 		<div class="bg-graykg min-w-[447px] max-h-[750px] p-[30px] rounded-[10px] mb-[20px] mr-[40px]">
 			<div class="h8 mb-[32px] text-black">Откликнуться на вакансию</div>
 			<div>
-				<input class="py-[22px] w-full mb-[20px] rounded-[10px] pl-[22px] text-[22px]" type="text" placeholder="Имя" required>
-				<input class="py-[22px] w-full mb-[20px] rounded-[10px] pl-[22px] text-[22px]" type="text" placeholder="Фамилия" required>
-				<input class="py-[22px] w-full mb-[20px] rounded-[10px] pl-[22px] text-[22px]" type="email" placeholder="E-mail" required>
-				<input class="py-[22px] w-full mb-[20px] rounded-[10px] pl-[22px] text-[22px]" type="number" placeholder="Телефон" required>
-				<button class="py-[15px] w-full mb-[20px] rounded-[10px] bg-mediumgray text-[#FFF]"><h4>Прикрепить резюме (.pdf)</h4></button>
-				<button class="py-[15px] w-full rounded-[10px] bg-lime"><h4>Откликнуться</h4></button>
+				<input v-model="name" class="py-[22px] w-full mb-[20px] rounded-[10px] pl-[22px] text-[22px] outline-none" type="text" placeholder="Имя" required>
+				<input v-model="surname" class="py-[22px] w-full mb-[20px] rounded-[10px] pl-[22px] text-[22px] outline-none" type="text" placeholder="Фамилия" required>
+				<input v-model="email" class="py-[22px] w-full mb-[20px] rounded-[10px] pl-[22px] text-[22px] outline-none" type="email" placeholder="E-mail" required>
+				<input v-model="phone" class="py-[22px] w-full mb-[20px] rounded-[10px] pl-[22px] text-[22px] outline-none" type="number" placeholder="Телефон" required>
+				<button @click="openFileExplorer" class="py-[15px] w-full mb-[20px] rounded-[10px] bg-mediumgray text-[#FFF]"><h4>Прикрепить резюме (.pdf)</h4></button>
+				<button type="submitForm" class="py-[15px] w-full rounded-[10px] bg-lime disabled:bg-opacity-50	" :disabled="isSubmitDisabled"><h4>Откликнуться</h4></button>
 			</div>
 		</div>
 			<div class="text-[#0A0B0B]">
@@ -56,7 +56,10 @@ import jobs from '@/data/jobs';
 export default {
   data() {
 	 return {
-		
+		name: '',
+      surname: '',
+      email: '',
+      phone: '',
 	 };
   },
   created() {
@@ -64,11 +67,38 @@ export default {
 	 this.job = this.getJobById(this.jobId);
   },
   methods: {
+	openFileExplorer() {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = '.pdf';
+      fileInput.style.display = 'none';
+      document.body.appendChild(fileInput);
+      fileInput.addEventListener('change', this.handleFileSelected);
+      fileInput.click();
+    },
+    handleFileSelected(event) {
+      const selectedFile = event.target.files[0];
+      console.log('Selected file:', selectedFile.name);
+      event.target.remove();
+    },
+    submitForm() {
+      if (this.validateForm()) {
+        console.log('Form submitted successfully');
+      } else {
+        console.error('Form validation failed');
+      }
+    },
+    validateForm() {
+      return this.name && this.surname && this.email && this.phone;
+    },
 	 getJobById(id) {
 		return jobs.find(job => job.id === id) || {};
 	 },
   },
   computed: {
+	isSubmitDisabled() {
+      return !this.validateForm();
+    },
   job() {
 	 const jobId = Number(this.$route.params.id);
 	 return jobs.find(job => job.id === jobId) || {};
