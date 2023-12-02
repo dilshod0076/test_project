@@ -7,8 +7,10 @@ module.exports = {
 	darkMode: '',
 	theme: {
 		 colors: {
+			'body': '#F6F7F8',
 		  	'black': '#0A0B0B',
 		  	'lime': '#CF0',
+			'limeHover': '#AEDA00',
 		  	'gray': '#ECECEC',
 		  	'darkgray': '#818181',
 		  	'mediumgray': '#989898',
@@ -16,13 +18,9 @@ module.exports = {
 		  	'lightgray': '#ECF0F3',
 			'graykg': '#ECECEC'
 		 },
-		 fontFamily: {
-			'sans': ['Noto Sans', 'sans-serif'],
-			'body': ['Nunito'],
-		 },
 	  extend: {
 		boxShadow: {
-			'3xl': '0px 4px 50px 0px rgba(0, 0, 0, 0.15)',
+			'80': '0px 0px 80px 0px rgba(204, 255, 0, 0.20)',
 		 }
 	},
 	plugins: [],

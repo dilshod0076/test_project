@@ -1,4 +1,4 @@
-# my-vue-app
+# job.karimov.group
 
 ## Project setup
 ```

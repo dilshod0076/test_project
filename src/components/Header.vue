@@ -1,50 +1,62 @@
 <template>
-	<div class="w-full">
-		<div class="flex bg-[#FFF] shadow-3xl px-[250px]">
-			<router-link class="flex mr-[365px]" to="/">
-				<img src="@/assets/img/logo.svg" alt="">
-				<h2 class="text-lime pt-[50px]">Job</h2>
-			</router-link>
-			<div class="text-darkgray flex py-[44px]">
-				<div class="mr-[80px] cursor-pointer">
-					<router-link to="/jobs"><h6 @mouseover="showDiv(1)" @mouseout="hideDiv(1)">Все вакансии</h6></router-link>
-					<div v-show="hoveredItem === 1" :class="['bg-lime', 'h-[6px]', 'rounded-t-lg', 'relative', 'top-11', 'mt-[-6px]']"></div>
-				</div>
-				<div class="mr-[80px] cursor-pointer">
-					<router-link to="/jobs"><h6 @mouseover="showDiv(2)" @mouseout="hideDiv(2)">Работа в ИТ</h6></router-link>
-					<div v-show="hoveredItem === 2" :class="['bg-lime', 'h-[6px]', 'rounded-t-lg', 'relative', 'top-11', 'mt-[-6px]']"></div>
-				</div>
-				<div class="mr-[80px] cursor-pointer">
-					<router-link to="/jobs"><h6 @mouseover="showDiv(3)" @mouseout="hideDiv(3)">Маркетинг и реклама</h6></router-link>
-					<div v-show="hoveredItem === 3" :class="['bg-lime', 'h-[6px]', 'rounded-t-lg', 'relative', 'top-11', 'mt-[-6px]']"></div>
-				</div>
-				<div class="cursor-pointer">
-					<router-link to="/jobs" @click="selectCareerStart"><h6 @mouseover="showDiv(4)" @mouseout="hideDiv(4)">Начало карьеры</h6></router-link>
-					<div v-show="hoveredItem === 4" :class="['bg-lime', 'h-[6px]', 'rounded-t-lg', 'relative', 'top-11', 'mt-[-6px]']"></div>
-				</div>
-			</div>
-		</div>
-		<div class="bg-lime h-[3px]">
+		<div class=" bg-[#FFF] shadow-3xl">
+      <div class="flex container mx-auto xl:py-[26px] lg:py-[26px] py-[18px]">
+          <img @click="toggleSidebar" class="mr-[24px] mx-[24px] xl:hidden lg:hidden" src="@/assets/img/menu.svg" alt="">
+          <img @click="home" class="xl:mr-[403px] xl:ml-[70px] lg:ml-[70px] mr-[100px] xl:w-[82px] lg:w-[52px] w-[46px] " src="@/assets/img/logo.svg" alt="">
+          <div class="text-darkgray xl:flex lg:flex hidden">
+            <div class="xl:mr-[80px] mr-[50px] cursor-pointer">
+              <router-link :to="{ name: 'jobs', query: { city: 'Все города', category: 'Все вакансии' } }" ><h6 class="hover:text-black" @click="showDiv(1)">Все вакансии</h6></router-link>
+              <div v-if="hoveredItem === 1" :class="['bg-lime h-[6px] rounded-t-lg relative lg:top-9  xl:top-10 mt-[-6px]']"></div>
+            </div>
+            <div class="xl:mr-[80px] mr-[40px] cursor-pointer">
+              <router-link :to="{ name: 'jobs', query: { city: 'Все города', category: 'ИТ специалист' } }" ><h6 class="hover:text-black" @click="showDiv(2)">Работа в ИТ</h6></router-link>
+              <div v-if="hoveredItem === 2" :class="['bg-lime h-[6px] rounded-t-lg relative lg:top-9 xl:top-10 mt-[-6px]']"></div>
+            </div>
+            <div class="xl:mr-[80px] mr-[40px] cursor-pointer">
+              <router-link :to="{ name: 'jobs', query: { city: 'Все города', category: 'Маркетинг и реклама' } }"><h6 class="hover:text-black" @click="showDiv(3)">Маркетинг и реклама</h6></router-link>
+              <div v-if="hoveredItem === 3" :class="['bg-lime h-[6px] rounded-t-lg relative lg:top-9 xl:top-10 mt-[-6px]']"></div>
+            </div>
+            <div class="cursor-pointer">
+              <router-link :to="{ name: 'jobs', query: { city: 'Все города', category: 'Начало карьеры' } }" ><h6 class="hover:text-black" @click="showDiv(4)">Начало карьеры</h6></router-link>
+              <div v-if="hoveredItem === 4" :class="['bg-lime h-[6px] rounded-t-lg relative lg:top-9 xl:top-10 mt-[-6px]']"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-lime xl:h-[3px] h-[1px]">
     </div>
-		
-	</div>
+    </div>  
 </template>
 <script>
 export default {
   data() {
     return {
-      hoveredItem: null,
+      hoveredItem: parseInt(localStorage.getItem('hoveredItem')) || null,
+      isSidebarVisible: false,
     };
   },
+  computed: {
+    storeHoveredItem() {
+      return this.$store.state.hoveredItem;
+    },
+  },
+  watch: {
+    storeHoveredItem(newVal) {
+      this.hoveredItem = newVal;
+      localStorage.setItem('hoveredItem', newVal);
+    },
+  },
   methods: {
+    home() {
+      this.$router.push('/');
+      this.$store.commit('setHoveredItem', null);
+      localStorage.setItem('hoveredItem', null);
+    },
     showDiv(item) {
-      this.hoveredItem = item;
+      this.$store.commit('setHoveredItem', item);
+      localStorage.setItem('hoveredItem', item);
     },
-    hideDiv() {
-      this.hoveredItem = null;
-    },
-	 selectCareerStart() {
-      this.$router.push({ path: '/jobs', query: { category: 'Начало карьеры' } });
+    toggleSidebar() {
+      this.$emit('toggleSidebar');
     },
   },
 };

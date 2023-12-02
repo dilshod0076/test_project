@@ -6,6 +6,9 @@ export default createStore({
   getters: {
   },
   mutations: {
+    setHoveredItem(state, item) {
+      state.hoveredItem = item;
+    },
   },
   actions: {
   },

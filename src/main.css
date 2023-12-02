@@ -1,37 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 @layer base {
 	html {
 	  font-family: "Nunito", system-ui, sans-serif;
 	}
 	body {
 		background-color: #F6F7F8;
-		margin: 0 auto; 
-  }
+		user-select: none;
+		margin: 0 auto;
+		font-family: 'Nunito', sans-serif;
+    }
 	h1 {
-		@apply text-[60px] font-black not-italic text-black leading-[85px];
+		@apply xl:text-[60px] lg:text-[40px] text-[22px] font-black text-black xl:leading-[85px] lg:leading-[85px] leading-[28px];
 	}
 	h2 {
-		@apply text-[40px] font-bold text-black leading-10;
+		@apply xl:text-[40px] text-[26px] font-bold text-black leading-10;
 	}
 	h3 {
-		@apply text-[36px] font-semibold text-black;
+		@apply xl:text-[35px] lg:text-[22px] text-[26px] font-semibold text-black;
 	}
 	h4 {
-		@apply text-[26px] font-normal;
+		@apply xl:text-[26px] lg:text-[22px] text-[17px] font-normal;
 	}
 	h5 {
-		@apply text-[24px] font-normal text-black;
+		@apply xl:text-[24px] text-[16px] font-normal text-black;
 	}
 	h6 {
-		@apply text-[22px] font-normal;
+		@apply xl:text-[22px] text-[19px] font-normal xl:leading-10 leading-6;
 	}
 	.h7 {
-		@apply text-[20px] font-normal  leading-4;
+		@apply xl:text-[20px] lg:text-[11px]  text-[16px] font-normal  leading-4;
 	}
 	.h8 {
-		@apply text-[32px] font-black text-darkgray;
+		@apply xl:text-[32px] lg:text-[16px] text-[13px]  font-black text-darkgray;
 	}
  }
